@@ -1,9 +1,9 @@
 <?php
 
-    namespace HotelBundle;
+namespace HotelBundle;
 
-    use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-    class HotelBundle extends Bundle {
+class HotelBundle extends Bundle {
 
-    }
+}
