@@ -49,3 +49,7 @@
 
 # PhpStorm config file
 .idea
+
+# Assetic dump dirs
+/web/css/*
+/web/js/*
