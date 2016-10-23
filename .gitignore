@@ -53,3 +53,5 @@
 # Assetic dump dirs
 /web/css/*
 /web/js/*
+
+node_modules

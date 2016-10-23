@@ -1,3 +1,8 @@
 hotel_homepage:
     path:     /
     defaults: { _controller: HotelBundle:Default:index }
+
+hotel_check:
+    path:     /sprawdz
+    defaults: { _controller: HotelBundle:Default:check }
+    methods: [POST]
