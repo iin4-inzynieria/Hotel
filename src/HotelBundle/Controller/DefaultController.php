@@ -6,11 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use HotelBundle\Form\StepOneType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
-
     public function indexAction()
     {
         $stepOneForm = $this->createForm(StepOneType::class, [], [
@@ -30,7 +28,7 @@ class DefaultController extends Controller
         $arrival = new \DateTime($data['arrival']);
         $departure = new \DateTime($data['departure']);
 
-        return new Response(':)');
-        //dump($arrival, $departure); die;
+        $entities = $this->getDoctrine()->getRepository('CoreBundle:Room')->getAvailableByDatePeriod($arrival, $departure);
+
     }
 }
