@@ -21,14 +21,4 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function checkAction(Request $request)
-    {
-        $data = $request->request->get('step_one');
-
-        $arrival = new \DateTime($data['arrival']);
-        $departure = new \DateTime($data['departure']);
-
-        $entities = $this->getDoctrine()->getRepository('CoreBundle:Room')->getAvailableByDatePeriod($arrival, $departure);
-
-    }
 }
