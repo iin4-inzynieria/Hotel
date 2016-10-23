@@ -17,7 +17,7 @@ class DefaultController extends Controller {
     public function indexAction() {
 
         $stepOneForm = $this->createForm(StepOneType::class, [], [
-            'action' => $this->generateUrl('hotel_check'),
+            'action' => $this->generateUrl('hotel_filter'),
             'method' => 'POST'
         ]);
 

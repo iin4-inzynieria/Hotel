@@ -1,0 +1,13 @@
+{% extends '@Hotel/layout.html.twig' %}
+
+{% block content %}
+    <div class="col-lg-12">
+        {{ form_start(form) }}
+        <div class="col-lg-12">
+            <div class="col-lg-4">{{ form_row(form.arrival) }}</div>
+            <div class="col-lg-4">{{ form_row(form.departure) }}</div>
+            <div class="col-lg-4">{{ form_row(form.check) }}</div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock content %}

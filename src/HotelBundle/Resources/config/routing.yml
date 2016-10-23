@@ -2,7 +2,17 @@ hotel_homepage:
     path:     /
     defaults: { _controller: HotelBundle:Default:index }
 
-hotel_check:
+hotel_reservation:
+    path:     /rezerwacja
+    defaults: { _controller: HotelBundle:Reservation:index }
+
+hotel_filter:
     path:     /sprawdz
     defaults: { _controller: HotelBundle:Default:filter }
     methods: [POST]
+
+hotel_rooms:
+    path:     /pokoje
+    defaults: { _controller: HotelBundle:Room:index }
+
+
