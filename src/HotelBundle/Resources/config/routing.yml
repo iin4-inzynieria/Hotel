@@ -8,7 +8,7 @@ hotel_reservation:
 
 hotel_filter:
     path:     /sprawdz
-    defaults: { _controller: HotelBundle:Default:filter }
+    defaults: { _controller: HotelBundle:Reservation:filter }
     methods: [POST]
 
 hotel_rooms:
