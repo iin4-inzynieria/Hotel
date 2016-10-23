@@ -1,0 +1,9 @@
+{{ dump(rooms) }}
+
+{% for room in rooms %}
+
+    <div id="room_{{ room.id }}">
+        {{ room.title }}
+    </div>
+
+{% endfor %}

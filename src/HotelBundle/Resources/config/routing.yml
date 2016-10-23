@@ -4,5 +4,5 @@ hotel_homepage:
 
 hotel_check:
     path:     /sprawdz
-    defaults: { _controller: HotelBundle:Default:check }
+    defaults: { _controller: HotelBundle:Default:filter }
     methods: [POST]
