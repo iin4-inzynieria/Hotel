@@ -7,12 +7,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use HotelBundle\Form\StepOneType;
 use Symfony\Component\HttpFoundation\Request;
 
-class DefaultController extends Controller
-{
-    public function indexAction()
-    {
+class DefaultController extends Controller {
+
+    /**
+     * Default index action.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexAction() {
+
         $stepOneForm = $this->createForm(StepOneType::class, [], [
-            'action' => $this->generateUrl('hotel_check'),
+            'action' => $this->generateUrl('hotel_filter'),
             'method' => 'POST'
         ]);
 
@@ -20,5 +25,4 @@ class DefaultController extends Controller
             'form' => $stepOneForm->createView()
         ]);
     }
-
 }

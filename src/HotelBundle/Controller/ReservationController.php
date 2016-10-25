@@ -12,7 +12,7 @@ class ReservationController extends Controller
     public function indexAction()
     {
         $stepOneForm = $this->createForm(StepOneType::class, [], [
-            'action' => $this->generateUrl('hotel_check'),
+            'action' => $this->generateUrl('hotel_filter'),
             'method' => 'POST'
         ]);
 
@@ -22,8 +22,16 @@ class ReservationController extends Controller
         ]);
     }
 
-    public function checkAction(Request $request)
-    {
+    /**
+     * Renders list room view. Lists only rooms that are matching given
+     * criteria (eg. only available rooms).
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function filterAction(Request $request) {
+
         $data = $request->request->get('step_one');
 
         $arrival = new \DateTime($data['arrival']);
@@ -31,5 +39,8 @@ class ReservationController extends Controller
 
         $entities = $this->getDoctrine()->getRepository('CoreBundle:Room')->getAvailableByDatePeriod($arrival, $departure);
 
+        return $this->render('HotelBundle:Index:list_available_rooms.html.twig', array(
+            'rooms' => $entities
+        ));
     }
 }

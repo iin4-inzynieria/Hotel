@@ -15,8 +15,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="room")
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\RoomRepository")
  */
-class Room
-{
+class Room {
+
+    /**
+     * Normal room.
+     */
+    const ROOM_TYPE_DEFAULT = 0;
+
+    /**
+     * Premium apartment.
+     */
+    const ROOM_TYPE_APARTMENT = 1;
+
     /**
      * @var integer
      *
@@ -49,10 +59,30 @@ class Room
     private $title;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imageLink", type="string", length=255)
+     */
+    private $imageLink;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="roomType", type="integer")
+     */
+    private $roomType;
+
+    /**
      * Room constructor.
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->orders = new ArrayCollection();
         $this->calendar = new ArrayCollection();
     }
@@ -60,27 +90,26 @@ class Room
     /**
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
      * @param Order $order
+     *
      * @return $this
      */
-    public function addOrder(Order $order)
-    {
+    public function addOrder(Order $order) {
         $this->orders[] = $order;
         return $this;
     }
 
     /**
      * @param Order $order
+     *
      * @return $this
      */
-    public function removeOrder(Order $order)
-    {
+    public function removeOrder(Order $order) {
         $this->orders->removeElement($order);
         return $this;
     }
@@ -88,35 +117,33 @@ class Room
     /**
      * @return Order[]|ArrayCollection
      */
-    public function getOrders()
-    {
+    public function getOrders() {
         return $this->orders;
     }
 
     /**
      * @return Calendar[]
      */
-    public function getCalendar()
-    {
+    public function getCalendar() {
         return $this->calendar;
     }
 
     /**
      * @param Calendar $calendar
+     *
      * @return Order
      */
-    public function addCalendar(Calendar $calendar)
-    {
+    public function addCalendar(Calendar $calendar) {
         $this->calendar[] = $calendar;
         return $this;
     }
 
     /**
      * @param Calendar $calendar
+     *
      * @return $this
      */
-    public function removeCalendar(Calendar $calendar)
-    {
+    public function removeCalendar(Calendar $calendar) {
         $this->calendar->removeElement($calendar);
         return $this;
     }
@@ -124,18 +151,83 @@ class Room
     /**
      * @return string
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
     /**
      * @param string $title
+     *
      * @return Room
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
         return $this;
+    }
+
+    /**
+     * Set roomType
+     *
+     * @param integer $roomType
+     *
+     * @return Room
+     */
+    public function setRoomType($roomType) {
+        $this->roomType = $roomType;
+
+        return $this;
+    }
+
+    /**
+     * Get roomType
+     *
+     * @return integer
+     */
+    public function getRoomType() {
+        return $this->roomType;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Room
+     */
+    public function setDescription($description) {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription() {
+        return $this->description;
+    }
+
+    /**
+     * Set imageLink
+     *
+     * @param string $imageLink
+     *
+     * @return Room
+     */
+    public function setImageLink($imageLink) {
+        $this->imageLink = $imageLink;
+
+        return $this;
+    }
+
+    /**
+     * Get imageLink
+     *
+     * @return string
+     */
+    public function getImageLink() {
+        return $this->imageLink;
     }
 }
