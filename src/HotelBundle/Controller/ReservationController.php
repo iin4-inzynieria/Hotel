@@ -6,11 +6,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use HotelBundle\Form\StepOneType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class ReservationController extends Controller
-{
-    public function indexAction()
-    {
+class ReservationController extends Controller {
+
+    /**
+     * Renders reservation page.
+     *
+     * @return Response
+     */
+    public function indexAction() {
+
         $stepOneForm = $this->createForm(StepOneType::class, [], [
             'action' => $this->generateUrl('hotel_filter'),
             'method' => 'POST'
@@ -28,7 +34,7 @@ class ReservationController extends Controller
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function filterAction(Request $request) {
 
@@ -39,8 +45,9 @@ class ReservationController extends Controller
 
         $entities = $this->getDoctrine()->getRepository('CoreBundle:Room')->getAvailableByDatePeriod($arrival, $departure);
 
-        return $this->render('HotelBundle:Index:list_available_rooms.html.twig', array(
-            'rooms' => $entities
+        return $this->render('HotelBundle:Reservation:list_available_rooms.html.twig', array(
+            'rooms' => $entities,
+            'current' => 'reservation'
         ));
     }
 }

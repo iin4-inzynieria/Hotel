@@ -6,7 +6,7 @@ hotel_homepage:
 hotel_reservation:
     path:     /rezerwacja
     defaults: { _controller: HotelBundle:Reservation:index }
-    methods: [POST]
+    methods: [GET]
 
 hotel_filter:
     path:     /sprawdz
