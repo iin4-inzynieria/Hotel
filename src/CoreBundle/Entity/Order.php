@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Order
  * @package CoreBundle\Entity
  *
- * @ORM\Table(name="order")
+ * @ORM\Table(name="orders")
  * @ORM\Entity
  */
 class Order
@@ -50,14 +50,6 @@ class Order
      */
     protected $calendar;
 
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="order_id", type="integer", length=15, nullable=true)
-     */
-    protected $orderId;
-
     /**
      * @var \DateTime
      *
@@ -72,13 +64,6 @@ class Order
      * @ORM\Column(name="departure_date", type="datetime", nullable=false)
      */
     protected $departure;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="status", type="string", length=40, nullable=false)
-     */
-    protected $status = '@TODO';
 
     public function __construct()
     {
@@ -158,24 +143,6 @@ class Order
     }
 
     /**
-     * @return int
-     */
-    public function getOrderId()
-    {
-        return $this->orderId;
-    }
-
-    /**
-     * @param int $orderId
-     * @return Order
-     */
-    public function setOrderId($orderId)
-    {
-        $this->orderId = $orderId;
-        return $this;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getArrival()
@@ -208,24 +175,6 @@ class Order
     public function setDeparture($departure)
     {
         $this->departure = $departure;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param string $status
-     * @return Order
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
         return $this;
     }
 }

@@ -1,0 +1,20 @@
+<h2>Rooms found: <span class="label label-default">{{ rooms | length }}</span></h2>
+
+{% if canAskForReservation is not defined %}
+    {% set canAskForReservation = false %}
+{% endif %}
+
+{% for room in rooms %}
+    <div class="col-lg-12" style="border: 1px solid grey; padding: 20px">
+
+        <div class="col-lg-4">Zdjęcie</div>
+        <div class="col-lg-{% if canAskForReservation %}6{% else %}8{% endif %}">{{ room.title }}</div>
+        {% if canAskForReservation %}
+            <form method="post" action="{{ path('hotel_book', {id: room.id} ) }}">
+                <input type="hidden" name="arrival" value="{{ arrival | date }}">
+                <input type="hidden" name="departure" value="{{ departure | date }}">
+                <input type="submit" class="btn btn-primary" value="Rezerwuj">
+            </form>
+        {% endif %}
+    </div>
+{% endfor %}

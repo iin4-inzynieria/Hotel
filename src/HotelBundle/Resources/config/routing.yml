@@ -1,18 +1,29 @@
 hotel_homepage:
     path:     /
     defaults: { _controller: HotelBundle:Default:index }
+    methods: [GET]
 
 hotel_reservation:
     path:     /rezerwacja
     defaults: { _controller: HotelBundle:Reservation:index }
+    methods: [GET]
 
 hotel_filter:
     path:     /sprawdz
     defaults: { _controller: HotelBundle:Reservation:filter }
     methods: [POST]
 
+hotel_book:
+    path:     /zarezerwuj/{id}
+    defaults: { _controller: HotelBundle:Reservation:book }
+    methods: [POST]
+
+hotel_create_reservation:
+    path:     /zarezerwowano
+    defaults: { _controller: HotelBundle:Reservation:createReservation }
+    methods: [POST]
+
 hotel_rooms:
     path:     /pokoje
     defaults: { _controller: HotelBundle:Room:index }
-
-
+    methods: [GET]

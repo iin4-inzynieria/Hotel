@@ -5,7 +5,6 @@ namespace HotelBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use HotelBundle\Form\StepOneType;
-use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller {
 
