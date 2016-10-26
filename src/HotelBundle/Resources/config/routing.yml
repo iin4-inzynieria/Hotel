@@ -13,6 +13,16 @@ hotel_filter:
     defaults: { _controller: HotelBundle:Reservation:filter }
     methods: [POST]
 
+hotel_book:
+    path:     /zarezerwuj/{id}
+    defaults: { _controller: HotelBundle:Reservation:book }
+    methods: [POST]
+
+hotel_create_reservation:
+    path:     /zarezerwowano
+    defaults: { _controller: HotelBundle:Reservation:createReservation }
+    methods: [POST]
+
 hotel_rooms:
     path:     /pokoje
     defaults: { _controller: HotelBundle:Room:index }

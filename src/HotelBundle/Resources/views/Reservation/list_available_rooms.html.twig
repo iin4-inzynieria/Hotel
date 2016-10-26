@@ -2,6 +2,10 @@
 
 {% block content %}
 
-    {{ include('HotelBundle:Parts:_room_list.html.twig', { 'rooms': rooms }) }}
+    <div id="reservationPeriod">
+        From: <strong>{{ arrival | date("d/m/Y") }}</strong>, To: <strong>{{ departure | date("d/m/Y") }}</strong>
+    </div>
+
+    {{ include('HotelBundle:Parts:_room_list.html.twig', { 'rooms': rooms, 'canAskForReservation': true }) }}
 
 {% endblock content %}
