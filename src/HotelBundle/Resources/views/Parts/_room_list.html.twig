@@ -13,6 +13,9 @@
         <tr>
             <th class="col-md-10">Zdjęcie</th>
             <th class="col-md-3">Nazwa pokoju</th>
+            {% if canAskForReservation %}
+                <th class="col-md-3">Cena</th>
+            {% endif %}
             <th class="col-md-3">Szczegóły</th>
             {% if canAskForReservation %}
                 <th class="col-md-3">Rezerwacja</th>
@@ -23,16 +26,22 @@
         <tbody>
         {% for room in rooms %}
             <tr>
-                <td class="col-md-10"><img class="img-thumbnail" src="{{ room.imageLink }}" alt="{{ room.title }}"/></td>
-                <td class="col-md-3">{{ room.title }}</td>
+                <td class="col-md-10"><img class="img-thumbnail" src="{{ room['room'].imageLink }}" alt="{{ room['room'].title }}"/></td>
+                <td class="col-md-3">{{ room['room'].title }}</td>
+                {% if canAskForReservation %}
+                    <td class="col-md-3">
+                        {{ room['price'] }} PLN
+                    </td>
+                {% endif %}
                 <td class="col-md-3">
-                    <a href="{{ path('hotel_rooms_show', { id: room.id }) }}" class="btn btn-default">Szczegóły</a>
+                    <a href="{{ path('hotel_rooms_show', { id: room['room'].id }) }}" class="btn btn-default">Szczegóły</a>
                 </td>
                 {% if canAskForReservation %}
                     <td class="col-md-3">
-                        <form method="post" action="{{ path('hotel_book', {id: room.id} ) }}">
+                        <form method="post" action="{{ path('hotel_book', {id: room['room'].id} ) }}">
                             <input type="hidden" name="arrival" value="{{ arrival | date }}">
                             <input type="hidden" name="departure" value="{{ departure | date }}">
+                            <input type="hidden" name="price" value="{{ room['price'] }}">
                             <input type="submit" class="btn btn-primary" value="Rezerwuj">
                         </form>
                     </td>

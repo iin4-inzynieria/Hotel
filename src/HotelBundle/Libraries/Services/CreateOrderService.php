@@ -49,6 +49,7 @@ class CreateOrderService {
             $order->setRoom($room);
             $order->setArrival($data['arrival']);
             $order->setDeparture($data['departure']);
+            $order->setPrice($data['price']);
 
             $this->em->persist($order);
             $this->em->flush();

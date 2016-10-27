@@ -20,16 +20,17 @@ class StepOneType extends AbstractType
                 'mapped' => false,
                 'label' => 'Przyjazd',
                 'required' => true,
-                'attr' => ['placeholder' => false, 'class' => 'Item Select dateTime', 'readonly' => 'readonly'],
+                'attr' => ['placeholder' => false, 'class' => 'form-control Item Select dateTime', 'readonly' => 'readonly'],
             ])
             ->add('departure', FormType\TextType::class, [
                 'mapped' => false,
                 'label' => 'Odjazd',
                 'required' => true,
-                'attr' => ['placeholder' => false, 'class' => 'Item Select dateTime', 'readonly' => 'readonly'],
+                'attr' => ['placeholder' => false, 'class' => 'form-control Item Select dateTime', 'readonly' => 'readonly'],
             ])
             ->add('check', FormType\SubmitType::class, [
-                'label' => 'Sprawdź'
+                'label' => 'Sprawdź',
+                'attr' => array('class' => 'btn btn-primary')
             ])
         ;
     }

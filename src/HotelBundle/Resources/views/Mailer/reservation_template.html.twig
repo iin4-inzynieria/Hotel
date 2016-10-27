@@ -1,8 +1,35 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <style>
+    </style>
+</head>
+<body>
+
+<h2 class="text-center">
+    {{ client.name }}, dziękujemy za zamówienie pokoju.
+</h2>
+<h4 class="text-center">
+    Poniżej znajdują się szczegóły zamówienia.
+</h4>
+
+<div style="padding-bottom: 10px;padding-top: 10px;">
+</div>
+
+<div class="text-center">
+    <h4>
+        Dane klienta:
+    </h4>
+    <p>Imie: <pre>{{ client.name }}</pre>
+    <p>Nazwisko: <pre>{{ client.surname }}</pre>
+    <p>Email: <pre>{{ client.email }}</pre>
+    <p>Cena: <pre>{{ data['price'] }} PLN</pre></p>
+    <p>Data przyjazdu: <pre>{{ data['arrival'] | date("d/m/Y") }}</pre>
+    <p>Data odjazdu: <pre>{{ data['departure'] | date("d/m/Y") }}</pre>
+    <p>Pokój: {{ room.title }}<img src="{{ room.imageLink }}">
+
+</div>
+
+</body>
 
 </html>
-
-{#{{ room }}#}
-{#{{ client }}#}
-{#{{ data }} - arrival, departure#}

@@ -5,11 +5,16 @@ namespace HotelBundle\Controller;
 use CoreBundle\Entity\Room;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class RoomController extends Controller
-{
-    public function indexAction()
-    {
-        $rooms = $this->getDoctrine()->getRepository('CoreBundle:Room')->findAll();
+class RoomController extends Controller {
+
+    /**
+     * Default room index action. Lists all rooms.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexAction() {
+
+        $rooms = $this->getDoctrine()->getRepository('CoreBundle:Room')->findAllWithPrices();
 
         return $this->render('HotelBundle:Room:index.html.twig', [
             'rooms' => $rooms,
@@ -17,11 +22,19 @@ class RoomController extends Controller
         ]);
     }
 
-    public function showAction($id){
+    /**
+     * Room show action. Shows details about
+     * particular room.
+     *
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function showAction($id) {
+
         $roomRepository = $this->getDoctrine()->getRepository('CoreBundle:Room');
         $room = $roomRepository->find($id);
 
-        if($room instanceof Room){
+        if ($room instanceof Room) {
 
             $roomPrice = $roomRepository->getActualRoomPrice($room);
 
@@ -32,7 +45,6 @@ class RoomController extends Controller
         }
 
         return $this->redirectToRoute('hotel_homepage');
-
 
     }
 }

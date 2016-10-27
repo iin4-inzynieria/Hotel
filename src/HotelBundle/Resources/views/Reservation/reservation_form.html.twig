@@ -3,7 +3,8 @@
 {% block content %}
 
     <div id="reservationPeriod">
-        Od: <strong>{{ arrival | date("d/m/Y") }}</strong>, Do: <strong>{{ departure | date("d/m/Y") }}</strong>
+        Od: <strong>{{ arrival | date("d/m/Y") }}</strong>, Do: <strong>{{ departure | date("d/m/Y") }}</strong>,
+        Cena: <strong>{{ price }} PLN</strong>
     </div>
 
     <div id="reservationForm">
@@ -32,6 +33,7 @@
             {{ form_widget(form.roomId, {'value' : roomId }) }}
             {{ form_widget(form.arrival, {'value' : arrival | date }) }}
             {{ form_widget(form.departure, {'value' : departure | date }) }}
+            {{ form_widget(form.price, {'value' : price }) }}
         </div>
 
         <div>

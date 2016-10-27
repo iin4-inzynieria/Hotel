@@ -65,6 +65,7 @@ class ReservationController extends Controller {
         $roomId = $request->attributes->get('id');
         $arrival = new \DateTime($request->request->get('arrival'));
         $departure = new \DateTime($request->request->get('departure'));
+        $price = $request->request->get('price');
 
         $stepTwoForm = $this->createReservationForm(new Client());
 
@@ -73,7 +74,8 @@ class ReservationController extends Controller {
             'current' => 'reservation',
             'arrival' => $arrival,
             'departure' => $departure,
-            'roomId' => $roomId
+            'roomId' => $roomId,
+            'price' => $price
         ));
     }
 
@@ -101,14 +103,15 @@ class ReservationController extends Controller {
         $form->handleRequest($request);
 
         $postParams = $request->request->get('step_two');
-        $dates = array(
+        $data = array(
             'arrival' => new \DateTime($postParams['arrival']),
-            'departure' => new \DateTime($postParams['departure'])
+            'departure' => new \DateTime($postParams['departure']),
+            'price' => $postParams['price']
         );
 
         $room = $this->getDoctrine()->getRepository('CoreBundle:Room')->findOneBy(array('id' => $postParams['roomId']));
 
-        $successful = $this->container->get('hotel_create_order_service')->createOrder($client, $room, $dates);
+        $successful = $this->container->get('hotel_create_order_service')->createOrder($client, $room, $data);
 
         if($successful) {
             $this->addFlash('notice', 'Pokój został zarezerwowany.');
