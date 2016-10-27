@@ -41,25 +41,22 @@ class MailerService {
     }
 
     /**
-     * Sends contact form inquiry.
+     * Sends simple mime message.
      *
-     * @param array $data
+     * @param string $from
+     * @param string $to
+     * @param string $mimeType
+     * @param string $body
      * @return bool
      */
-    public function sendContactEmail(array $data) {
+    private function sendSimpleMimeMessage($from, $to, $mimeType, $body) {
 
         try {
             $message = \Swift_Message::newInstance()
                 ->setSubject('Rezerwacja w naszym hotelu.')
-                ->setFrom($this->email)
-                ->setTo($this->email)
-                ->setBody(
-                    $this->twig->render(
-                        'HotelBundle:Mailer:contact_template.html.twig',
-                        array('data' => $data)
-                    ),
-                    'text/html'
-                );
+                ->setFrom($from)
+                ->setTo($to)
+                ->setBody($body, $mimeType);
 
             $this->mailer->send($message);
         } catch (\Exception $e) {
@@ -69,7 +66,23 @@ class MailerService {
         return true;
     }
 
-        /**
+    /**
+     * Sends contact form inquiry.
+     *
+     * @param array $data
+     * @return bool
+     */
+    public function sendContactEmail(array $data) {
+
+        return $this->sendSimpleMimeMessage($this->email, $this->email, 'text/html',
+            $this->twig->render(
+                'HotelBundle:Mailer:contact_template.html.twig',
+                array('data' => $data)
+            )
+        );
+    }
+
+    /**
      * Sends reservation confirmation message.
      *
      * @param Client $client
@@ -79,28 +92,14 @@ class MailerService {
      */
     public function sendReservationEmail(Client $client, Room $room, array $data) {
 
-        try {
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Rezerwacja w naszym hotelu.')
-                ->setFrom($this->email)
-                ->setTo($client->getEmail())
-                ->setBody(
-                    $this->twig->render(
-                        'HotelBundle:Mailer:reservation_template.html.twig',
-                        array(
-                            'room' => $room,
-                            'client' => $client,
-                            'data' => $data
-                        )
-                    ),
-                    'text/html'
-                );
-
-            $this->mailer->send($message);
-        } catch (\Exception $e) {
-            return false;
-        }
-
-        return true;
+        return $this->sendSimpleMimeMessage($this->email, $client->getEmail(), 'text/html',
+            $this->twig->render(
+                'HotelBundle:Mailer:reservation_template.html.twig',
+                array(
+                    'room' => $room,
+                    'client' => $client,
+                    'data' => $data
+                )
+            ));
     }
 }
