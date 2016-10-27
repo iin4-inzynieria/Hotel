@@ -29,6 +29,7 @@ class MailerService {
 
     /**
      * MailerService constructor.
+     *
      * @param \Twig_Environment $twig
      * @param \Swift_Mailer $mailer
      * @param string $email
@@ -39,6 +40,12 @@ class MailerService {
         $this->email = $email;
     }
 
+    /**
+     * Sends contact form inquiry.
+     *
+     * @param array $data
+     * @return bool
+     */
     public function sendContactEmail(array $data) {
 
         try {
