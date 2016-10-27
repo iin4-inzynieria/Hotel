@@ -46,11 +46,11 @@ class MailerService {
      * @param string $from
      * @param string $to
      * @param string $subject
-     * @param string $mimeType
      * @param string $body
+     * @param string $mimeType
      * @return bool
      */
-    private function sendSimpleMimeMessage($from, $to, $subject, $mimeType, $body) {
+    private function sendSimpleMimeMessage($from, $to, $subject, $body, $mimeType = 'text/html') {
 
         try {
             $message = \Swift_Message::newInstance()
@@ -75,7 +75,7 @@ class MailerService {
      */
     public function sendContactEmail(array $data) {
 
-        return $this->sendSimpleMimeMessage($this->email, $this->email, 'Zapytanie.', 'text/html',
+        return $this->sendSimpleMimeMessage($this->email, $this->email, 'Zapytanie.',
             $this->twig->render(
                 'HotelBundle:Mailer:contact_template.html.twig',
                 array('data' => $data)
@@ -92,7 +92,7 @@ class MailerService {
      */
     public function sendReservationEmail(Client $client, Room $room, array $data) {
 
-        return $this->sendSimpleMimeMessage($this->email, $client->getEmail(), 'Rezerwacja w naszym hotelu.', 'text/html',
+        return $this->sendSimpleMimeMessage($this->email, $client->getEmail(), 'Rezerwacja w naszym hotelu.',
             $this->twig->render(
                 'HotelBundle:Mailer:reservation_template.html.twig',
                 array(

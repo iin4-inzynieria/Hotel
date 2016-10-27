@@ -61,11 +61,9 @@ class CreateOrderService {
                 $room
             );
 
-            $this->mailer->sendReservationEmail($client, $room, $data);
+            return $this->mailer->sendReservationEmail($client, $room, $data);
         } catch(\Exception $e) {
             return false;
         }
-
-        return true;
     }
 }
