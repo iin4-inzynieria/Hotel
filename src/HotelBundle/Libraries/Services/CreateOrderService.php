@@ -20,12 +20,19 @@ class CreateOrderService {
     private $em;
 
     /**
+     * @var MailerService
+     */
+    private $mailer;
+
+    /**
      * CreateOrderService constructor.
      *
      * @param EntityManager $em
+     * @param MailerService $mailer
      */
-    public function __construct(EntityManager $em) {
+    public function __construct(EntityManager $em, MailerService $mailer) {
         $this->em = $em;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -52,6 +59,8 @@ class CreateOrderService {
                 $data['departure'],
                 $room
             );
+
+            $this->mailer->sendReservationEmail($client, $room, $data);
         } catch(\Exception $e) {
             return false;
         }

@@ -1,4 +1,9 @@
 services:
+
+    hotel_mailer_service:
+        class: HotelBundle\Libraries\Services\MailerService
+        arguments: ['@twig', '@mailer']
+
     hotel_create_order_service:
         class: HotelBundle\Libraries\Services\CreateOrderService
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine.orm.entity_manager', '@hotel_mailer_service']
