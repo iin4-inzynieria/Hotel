@@ -2,17 +2,13 @@
 
 namespace HotelBundle\Form;
 
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type as FormType;
 
 use Symfony\Component\Validator\Constraints as Assert;
-
-use Fachowo\AdminBundle\Form\Traits;
 
 class StepOneType extends AbstractType
 {
