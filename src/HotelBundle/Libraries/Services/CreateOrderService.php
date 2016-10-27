@@ -40,11 +40,18 @@ class CreateOrderService {
             $order = new Order();
             $order->setClient($client);
             $order->setRoom($room);
-            $order->setArrival(new \DateTime($data['arrival']));
-            $order->setDeparture(new \DateTime($data['departure']));
+            $order->setArrival($data['arrival']);
+            $order->setDeparture($data['departure']);
 
             $this->em->persist($order);
             $this->em->flush();
+
+            $this->em->getRepository('CoreBundle:Calendar')->changeStatusBetween(
+                0,
+                $data['arrival'],
+                $data['departure'],
+                $room
+            );
         } catch(\Exception $e) {
             return false;
         }

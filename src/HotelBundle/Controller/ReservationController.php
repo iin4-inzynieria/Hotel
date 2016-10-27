@@ -101,19 +101,21 @@ class ReservationController extends Controller {
         $form->handleRequest($request);
 
         $postParams = $request->request->get('step_two');
+        $arrival = new \DateTime($postParams['arrival']);
+        $departure = new \DateTime($postParams['departure']);
 
         $room = $this->getDoctrine()->getRepository('CoreBundle:Room')->findOneBy(array('id' => $postParams['roomId']));
 
-        $successfull = $this->container->get('hotel_create_order_service')->createOrder(
+        $successful = $this->container->get('hotel_create_order_service')->createOrder(
             $client,
             $room,
             array(
-                'arrival' => $postParams['arrival'],
-                'departure' => $postParams['departure']
+                'arrival' => $arrival,
+                'departure' => $departure
             )
         );
 
-        if($successfull) {
+        if($successful) {
             $this->addFlash('notice', 'Pokój został zarezerwowany.');
         } else {
             $this->addFlash('error', 'Coś poszło nie tak, pokój nie został zarezerwowany.');
