@@ -12,7 +12,7 @@ use Fachowo\CoreBundle\Entity\Interfaces\EntityInterface;
  * @package CoreBundle\Entity
  *
  * @ORM\Table(name="calendar")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\CalendarRepository")
  */
 class Calendar
 {
