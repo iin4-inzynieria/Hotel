@@ -20,7 +20,7 @@
                 <li class="{% if current == 'offer' %}active{% endif %}"><a href="{{ path('hotel_rooms') }}">Oferta <span class="sr-only">(current)</span></a></li>
                 <li class="{% if current == 'reservation' %}active{% endif %}"><a href="{{ path('hotel_reservation') }}">Rezerwacja</a></li>
                 <li class="{% if current == 'restaurant' %}active{% endif %}"><a href="#">Restauracja</a></li>
-                <li class="{% if current == 'contact' %}active{% endif %}"><a href="#">Kontakt</a></li>
+                <li class="{% if current == 'contact' %}active{% endif %}"><a href="{{ path('hotel_contact') }}">Kontakt</a></li>
 
             </ul>
 
