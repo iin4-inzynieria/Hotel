@@ -79,8 +79,7 @@ class MailerService {
             $this->twig->render(
                 'HotelBundle:Mailer:contact_template.html.twig',
                 array('data' => $data)
-            )
-        );
+            ));
     }
 
     /**
