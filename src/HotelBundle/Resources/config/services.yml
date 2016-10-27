@@ -1,8 +1,7 @@
 services:
-
     hotel_mailer_service:
         class: HotelBundle\Libraries\Services\MailerService
-        arguments: ['@twig', '@mailer']
+        arguments: ['@twig', '@mailer', '%mailer_user%']
 
     hotel_create_order_service:
         class: HotelBundle\Libraries\Services\CreateOrderService
