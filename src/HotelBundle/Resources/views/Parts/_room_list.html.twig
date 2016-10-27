@@ -7,7 +7,7 @@
 {% for room in rooms %}
     <div class="col-lg-12" style="border: 1px solid grey; padding: 20px">
 
-        <div class="col-lg-4">Zdjęcie</div>
+        <div class="col-lg-3"><img class="img-thumbnail" src="{{ room.imageLink }}" alt="{{ room.title }}" /></div>
         <div class="col-lg-{% if canAskForReservation %}6{% else %}8{% endif %}">{{ room.title }}</div>
         {% if canAskForReservation %}
             <form method="post" action="{{ path('hotel_book', {id: room.id} ) }}">
@@ -16,5 +16,8 @@
                 <input type="submit" class="btn btn-primary" value="Rezerwuj">
             </form>
         {% endif %}
+        <div class="col-lg-1">
+            <a href="{{ path('hotel_rooms_show', { id: room.id }) }}" class="button">Details</a>
+        </div>
     </div>
 {% endfor %}

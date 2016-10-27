@@ -3,6 +3,16 @@ hotel_homepage:
     defaults: { _controller: HotelBundle:Default:index }
     methods: [GET]
 
+hotel_contact:
+    path:     /contact
+    defaults: { _controller: HotelBundle:Default:contact }
+    methods: [GET]
+
+hotel_contact_message:
+    path:     /contact
+    defaults: { _controller: HotelBundle:Default:sendMessage }
+    methods: [POST]
+
 hotel_reservation:
     path:     /rezerwacja
     defaults: { _controller: HotelBundle:Reservation:index }
@@ -26,4 +36,9 @@ hotel_create_reservation:
 hotel_rooms:
     path:     /pokoje
     defaults: { _controller: HotelBundle:Room:index }
+    methods: [GET]
+
+hotel_rooms_show:
+    path:     /details/{id}
+    defaults: { _controller: HotelBundle:Room:show }
     methods: [GET]

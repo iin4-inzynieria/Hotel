@@ -1,0 +1,17 @@
+{% extends '@Hotel/layout.html.twig' %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>{{ room.title }}</h1>
+    </div>
+    <div class="bs-component">
+        <div class="col-lg-6">
+            <p class="text-justify">{{ room.description }}</p>
+        </div>
+        <div class="col-lg-6">
+            <img class="img-thumbnail" src="{{ room.imageLink }}" alt="{{ room.title }}">
+            <h3 class="text-center"><em>{{ room.roomType == 0 ? 'Normal' : 'Apartament'  }}</em></h3>
+            <p class="text-center"><strong>Price per Day: </strong>{{ roomPrice }}</p>
+        </div>
+    </div>
+{% endblock content %}
