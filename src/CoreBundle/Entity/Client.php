@@ -15,8 +15,8 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  * @ORM\Table(name="client")
  * @ORM\Entity
  */
-class Client
-{
+class Client {
+
     use ORMBehaviors\Timestampable\Timestampable;
 
     /**
@@ -50,7 +50,6 @@ class Client
      */
     private $email;
 
-
     /**
      * @var Order[]
      *
@@ -58,24 +57,21 @@ class Client
      */
     private $orders;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->orders = new ArrayCollection();
     }
 
     /**
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
      * @return string
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -83,8 +79,7 @@ class Client
      * @param string $email
      * @return Client
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
         return $this;
     }
@@ -92,8 +87,7 @@ class Client
     /**
      * @return string
      */
-    public function getSurname()
-    {
+    public function getSurname() {
         return $this->surname;
     }
 
@@ -101,8 +95,7 @@ class Client
      * @param string $surname
      * @return Client
      */
-    public function setSurname($surname)
-    {
+    public function setSurname($surname) {
         $this->surname = $surname;
         return $this;
     }
@@ -110,8 +103,7 @@ class Client
     /**
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -119,8 +111,7 @@ class Client
      * @param string $name
      * @return Client
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
         return $this;
     }
@@ -129,8 +120,7 @@ class Client
      * @param Order $order
      * @return $this
      */
-    public function addOrder(Order $order)
-    {
+    public function addOrder(Order $order) {
         $this->orders[] = $order;
         return $this;
     }
@@ -139,8 +129,7 @@ class Client
      * @param Order $order
      * @return $this
      */
-    public function removeOrder(Order $order)
-    {
+    public function removeOrder(Order $order) {
         $this->orders->removeElement($order);
         return $this;
     }
@@ -148,8 +137,7 @@ class Client
     /**
      * @return Order[]|ArrayCollection
      */
-    public function getOrders()
-    {
+    public function getOrders() {
         return $this->orders;
     }
 }

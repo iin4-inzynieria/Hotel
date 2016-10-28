@@ -45,7 +45,7 @@ class DefaultController extends Controller {
     public function sendMessageAction(Request $request) {
 
         $contactFormData = $request->request->all();
-        
+
         $this->container->get('hotel_mailer_service')->sendContactEmail($contactFormData);
 
         $this->addFlash('notice', 'Wiadomość została wysłana!');
