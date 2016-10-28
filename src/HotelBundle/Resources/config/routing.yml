@@ -47,3 +47,8 @@ hotel_rooms_show:
     path:     /szczegoly/{id}
     defaults: { _controller: HotelBundle:Room:show }
     methods: [GET]
+
+reservation_list:
+    path:     /lista-rezerwacji
+    defaults: { _controller: HotelBundle:Admin:reservationList }
+    methods: [GET]

@@ -15,7 +15,7 @@ var pikadayVars = {
             weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
         }
     },
-    locale: $('body').data('lang'),
+    locale: $('html').attr('lang'),
     pickers: [],
     dateInputs: $("input.dateTime:not(.manually)"),
     config: function (field, locale, defaultDate, onSelect, onOpen) {
@@ -41,7 +41,7 @@ var pikadayVars = {
             field: field,
             i18n: pikadayVars.i18n[locale],
             firstDay: 1,
-            format: 'LL',
+            format: 'D-M-Y',
             showTime: false,
             defaultDate: defaultDate,
             minDate: moment().toDate(),
