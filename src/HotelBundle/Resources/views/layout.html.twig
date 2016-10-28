@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Hotele - WSB! :)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ asset('css/hotel.css') }}">
+</head>
+
+<body>
+
+<div id="flashNotices">
+{% for flashMessage in app.session.flashbag.get('notice') %}
+
+    <div class="alert alert-success text-center">
+        {{ flashMessage }}
+    </div>
+
+{% endfor %}
+
+{% for flashMessage in app.session.flashbag.get('error') %}
+
+    <div class="alert alert-danger text-center">
+        {{ flashMessage }}
+    </div>
+
+{% endfor %}
+</div>
+
+<div class="container">
+    <div class="row">
+        {% include '@Hotel/Parts/_menu.html.twig' %}
+
+        {% block content %}
+        {% endblock content %}
+    </div>
+</div>
+
+<script src="{{ asset('js/hotel.js') }}"></script>
+</body>
+
+</html>

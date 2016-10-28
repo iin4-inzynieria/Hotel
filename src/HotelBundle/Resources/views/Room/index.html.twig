@@ -1,0 +1,7 @@
+{% extends '@Hotel/layout.html.twig' %}
+
+{% block content %}
+
+    {{ include('HotelBundle:Parts:_room_list.html.twig', { 'rooms': rooms }) }}
+
+{% endblock content %}

@@ -46,3 +46,12 @@
 
 # Backup entities generated with doctrine:generate:entities command
 */Entity/*~
+
+# PhpStorm config file
+.idea
+
+# Assetic dump dirs
+/web/css/*
+/web/js/*
+
+node_modules

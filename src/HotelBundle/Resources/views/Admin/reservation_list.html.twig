@@ -1,0 +1,32 @@
+{% extends '@Hotel/layout.html.twig' %}
+
+{% block content %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+
+            <caption>
+                <h2>Lista rezerwacji</h2>
+            </caption>
+
+            <thead class="thead-inverse">
+            <tr>
+                <th class="col-md-3">Pokój</th>
+                <th class="col-md-3">Email klienta</th>
+                <th class="col-md-3">Data zakwaterowania</th>
+                <th class="col-md-3">Data opuszczenia pokoju</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td class="col-md-3"><a href="{{ path('hotel_rooms_show', { id: order.room.id }) }}">{{ order.room.title }}</a></td>
+                    <td class="col-md-3">{{ order.client.email }}</td>
+                    <td class="col-md-3">{{ order.arrival | localizeddate('long', 'none', app.request.locale ) }}</td>
+                    <td class="col-md-3">{{ order.departure | localizeddate('long', 'none', app.request.locale ) }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

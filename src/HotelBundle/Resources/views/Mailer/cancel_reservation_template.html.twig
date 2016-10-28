@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    </style>
+</head>
+<body>
+
+<h2 class="text-center">
+    {{ client.name }}, twoja rezerwacja została anulowana.
+</h2>
+<h4 class="text-center">
+    Poniższa rezerwacja została odwołana:
+</h4>
+
+<div style="padding-bottom: 10px;padding-top: 10px;">
+</div>
+
+<div class="text-center">
+    <h4>
+        Dane klienta:
+    </h4>
+    <p>Imie: <pre>{{ client.name }}</pre>
+    <p>Nazwisko: <pre>{{ client.surname }}</pre>
+    <p>Email: <pre>{{ client.email }}</pre>
+    <p>Cena: <pre>{{ order.price }} PLN</pre></p>
+    <p>Data przyjazdu: <pre>{{ order.arrival | localizeddate('long', 'none', app.request.locale ) }}</pre>
+    <p>Data odjazdu: <pre>{{ order.departure | localizeddate('long', 'none', app.request.locale ) }}</pre>
+    <p>Pokój: {{ room.title }}<img src="{{ room.imageLink }}">
+
+</div>
+
+</body>
+
+</html>

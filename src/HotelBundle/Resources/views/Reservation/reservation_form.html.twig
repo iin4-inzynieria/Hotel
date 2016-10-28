@@ -1,0 +1,45 @@
+{% extends '@Hotel/layout.html.twig' %}
+
+{% block content %}
+
+    <div id="reservationPeriod">
+        Od: <strong>{{ arrival | localizeddate('long', 'none', app.request.locale ) }}</strong>, Do: <strong>{{ departure | localizeddate('long', 'none', app.request.locale ) }}</strong>,
+        Cena: <strong>{{ price }} PLN</strong>
+    </div>
+
+    <div id="reservationForm">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        <div class="form-group">
+            {{ form_label(form.name) }}
+            {{ form_errors(form.name) }}
+            {{ form_widget(form.name) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.surname) }}
+            {{ form_errors(form.surname) }}
+            {{ form_widget(form.surname) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.email) }}
+            {{ form_errors(form.email) }}
+            {{ form_widget(form.email) }}
+        </div>
+
+        <div>
+            {{ form_widget(form.roomId, {'value' : roomId }) }}
+            {{ form_widget(form.arrival, {'value' : arrival | date }) }}
+            {{ form_widget(form.departure, {'value' : departure | date }) }}
+            {{ form_widget(form.price, {'value' : price }) }}
+        </div>
+
+        <div>
+            {{ form_widget(form.submit) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock content %}
