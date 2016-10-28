@@ -3,6 +3,14 @@ services:
         class: HotelBundle\Libraries\Services\MailerService
         arguments: ['@twig', '@mailer', '%mailer_user%']
 
+    hotel_order_service:
+        class: HotelBundle\Libraries\Services\OrderService
+        arguments: ['@hotel_create_order_service', '@hotel_delete_order_service']
+
     hotel_create_order_service:
         class: HotelBundle\Libraries\Services\CreateOrderService
+        arguments: ['@doctrine.orm.entity_manager', '@hotel_mailer_service']
+
+    hotel_delete_order_service:
+        class: HotelBundle\Libraries\Services\DeleteOrderService
         arguments: ['@doctrine.orm.entity_manager', '@hotel_mailer_service']

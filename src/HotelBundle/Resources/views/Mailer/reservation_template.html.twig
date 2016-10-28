@@ -24,6 +24,7 @@
     <p>Nazwisko: <pre>{{ client.surname }}</pre>
     <p>Email: <pre>{{ client.email }}</pre>
     <p>Cena: <pre>{{ data['price'] }} PLN</pre></p>
+    <p><a href="{{ url('hotel_cancel_reservation', { cancelCode: data['cancelCode'] }) }}">Odwołaj rezerwację (kliknij).</a></p>
     <p>Data przyjazdu: <pre>{{ data['arrival'] | localizeddate('long', 'none', app.request.locale ) }}</pre>
     <p>Data odjazdu: <pre>{{ data['departure'] | localizeddate('long', 'none', app.request.locale ) }}</pre>
     <p>Pokój: {{ room.title }}<img src="{{ room.imageLink }}">

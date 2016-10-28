@@ -14,7 +14,7 @@
 <div id="flashNotices">
 {% for flashMessage in app.session.flashbag.get('notice') %}
 
-    <div class="alert alert-success">
+    <div class="alert alert-success text-center">
         {{ flashMessage }}
     </div>
 
@@ -22,7 +22,7 @@
 
 {% for flashMessage in app.session.flashbag.get('error') %}
 
-    <div class="alert alert-error">
+    <div class="alert alert-danger text-center">
         {{ flashMessage }}
     </div>
 
