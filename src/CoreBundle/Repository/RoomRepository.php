@@ -32,8 +32,8 @@ class RoomRepository extends EntityRepository {
      */
     public function getAvailableByDatePeriod(\DateTime $arrival, \DateTime $departure) {
         
-        $interval = $arrival->diff($departure, true)->d + 1;
-        
+        $interval = intval($arrival->diff($departure, true)->format('%a')) + 1;
+
         return $this->createQueryBuilder('r')
             ->select('r AS room, SUM(c.price) AS price')
             ->leftJoin('r.calendar', 'c')

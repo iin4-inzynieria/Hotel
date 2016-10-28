@@ -93,6 +93,8 @@ class ReservationController extends Controller {
     }
 
     /**
+     * Creates reservation.
+     *
      * @param Request $request
      * @return Response
      */
@@ -111,12 +113,37 @@ class ReservationController extends Controller {
 
         $room = $this->getDoctrine()->getRepository('CoreBundle:Room')->findOneBy(array('id' => $postParams['roomId']));
 
-        $successful = $this->container->get('hotel_create_order_service')->createOrder($client, $room, $data);
+        $successful = $this->container->get('hotel_order_service')->createOrder($client, $room, $data);
 
         if($successful) {
             $this->addFlash('notice', 'Pokój został zarezerwowany.');
         } else {
             $this->addFlash('error', 'Coś poszło nie tak, pokój nie został zarezerwowany.');
+        }
+
+        return $this->redirect($this->generateUrl('hotel_homepage'));
+    }
+
+    /**
+     * Cancels reservation.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function cancelAction(Request $request) {
+
+        $cancelCode = $request->query->get('cancelCode');
+
+        $order = $this->getDoctrine()->getRepository('CoreBundle:Order')->findOneBy(array('cancelReservationCode' => $cancelCode));
+
+        $successful = !isset($order) || empty($order)
+            ? false
+            : $this->container->get('hotel_order_service')->deleteOrderIfPossible($order);
+
+        if($successful) {
+            $this->addFlash('notice', 'Rezerwacja została anulowana.');
+        } else {
+            $this->addFlash('error', 'Nie można odwołać rezerwacji.');
         }
 
         return $this->redirect($this->generateUrl('hotel_homepage'));

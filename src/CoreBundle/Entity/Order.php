@@ -15,8 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="orders")
  * @ORM\Entity
  */
-class Order
-{
+class Order {
+
     /**
      * @var integer
      *
@@ -66,30 +66,34 @@ class Order
     protected $price;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="cancelReservationCode", type="string", nullable=false, length=255)
+     */
+    protected $cancelReservationCode;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="departure_date", type="datetime", nullable=false)
      */
     protected $departure;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->calendar = new ArrayCollection();
     }
 
     /**
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
      * @return Client
      */
-    public function getClient()
-    {
+    public function getClient() {
         return $this->client;
     }
 
@@ -97,8 +101,7 @@ class Order
      * @param Client $client
      * @return Order
      */
-    public function setClient($client)
-    {
+    public function setClient($client) {
         $this->client = $client;
         return $this;
     }
@@ -106,8 +109,7 @@ class Order
     /**
      * @return Room
      */
-    public function getRoom()
-    {
+    public function getRoom() {
         return $this->room;
     }
 
@@ -115,8 +117,7 @@ class Order
      * @param Room $room
      * @return Order
      */
-    public function setRoom($room)
-    {
+    public function setRoom($room) {
         $this->room = $room;
         return $this;
     }
@@ -124,8 +125,7 @@ class Order
     /**
      * @return Calendar[]
      */
-    public function getCalendar()
-    {
+    public function getCalendar() {
         return $this->calendar;
     }
 
@@ -133,8 +133,7 @@ class Order
      * @param Calendar $calendar
      * @return Order
      */
-    public function addCalendar(Calendar $calendar)
-    {
+    public function addCalendar(Calendar $calendar) {
         $this->calendar[] = $calendar;
         return $this;
     }
@@ -143,8 +142,7 @@ class Order
      * @param Calendar $calendar
      * @return $this
      */
-    public function removeCalendar(Calendar $calendar)
-    {
+    public function removeCalendar(Calendar $calendar) {
         $this->calendar->removeElement($calendar);
         return $this;
     }
@@ -152,8 +150,7 @@ class Order
     /**
      * @return \DateTime
      */
-    public function getArrival()
-    {
+    public function getArrival() {
         return $this->arrival;
     }
 
@@ -161,8 +158,7 @@ class Order
      * @param \DateTime $arrival
      * @return Order
      */
-    public function setArrival($arrival)
-    {
+    public function setArrival($arrival) {
         $this->arrival = $arrival;
         return $this;
     }
@@ -170,8 +166,7 @@ class Order
     /**
      * @return \DateTime
      */
-    public function getDeparture()
-    {
+    public function getDeparture() {
         return $this->departure;
     }
 
@@ -179,8 +174,7 @@ class Order
      * @param \DateTime $departure
      * @return Order
      */
-    public function setDeparture($departure)
-    {
+    public function setDeparture($departure) {
         $this->departure = $departure;
         return $this;
     }
@@ -192,8 +186,7 @@ class Order
      *
      * @return Order
      */
-    public function setPrice($price)
-    {
+    public function setPrice($price) {
         $this->price = $price;
 
         return $this;
@@ -204,8 +197,29 @@ class Order
      *
      * @return string
      */
-    public function getPrice()
-    {
+    public function getPrice() {
         return $this->price;
+    }
+
+    /**
+     * Set cancelReservationCode
+     *
+     * @param string $cancelReservationCode
+     *
+     * @return Order
+     */
+    public function setCancelReservationCode($cancelReservationCode) {
+        $this->cancelReservationCode = $cancelReservationCode;
+
+        return $this;
+    }
+
+    /**
+     * Get cancelReservationCode
+     *
+     * @return string
+     */
+    public function getCancelReservationCode() {
+        return $this->cancelReservationCode;
     }
 }

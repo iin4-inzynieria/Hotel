@@ -39,7 +39,7 @@ class CreateOrderService {
      * @param Client $client
      * @param Room $room
      * @param array $data
-     * @return Order
+     * @return boolean
      */
     public function createOrder(Client $client, Room $room, array $data) {
 
@@ -50,6 +50,8 @@ class CreateOrderService {
             $order->setArrival($data['arrival']);
             $order->setDeparture($data['departure']);
             $order->setPrice($data['price']);
+            $order->setCancelReservationCode(md5(serialize($client) . md5(uniqid())));
+            $data['cancelCode'] = $order->getCancelReservationCode();
 
             $this->em->persist($order);
             $this->em->flush();
