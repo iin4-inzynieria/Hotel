@@ -3,7 +3,7 @@
 {% block content %}
 
     <div id="reservationPeriod">
-        Od: <strong>{{ arrival | date("d/m/Y") }}</strong>, Do: <strong>{{ departure | date("d/m/Y") }}</strong>,
+        Od: <strong>{{ arrival | localizeddate('long', 'none', app.request.locale ) }}</strong>, Do: <strong>{{ departure | localizeddate('long', 'none', app.request.locale ) }}</strong>,
         Cena: <strong>{{ price }} PLN</strong>
     </div>
 

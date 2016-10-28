@@ -22,8 +22,8 @@
                 <tr>
                     <td class="col-md-3"><a href="{{ path('hotel_rooms_show', { id: order.room.id }) }}">{{ order.room.title }}</a></td>
                     <td class="col-md-3">{{ order.client.email }}</td>
-                    <td class="col-md-3">{{ order.arrival | localizeddate('long', 'none', 'pl' ) }}</td>
-                    <td class="col-md-3">{{ order.departure | localizeddate('long', 'none', 'pl' ) }}</td>
+                    <td class="col-md-3">{{ order.arrival | localizeddate('long', 'none', app.request.locale ) }}</td>
+                    <td class="col-md-3">{{ order.departure | localizeddate('long', 'none', app.request.locale ) }}</td>
                 </tr>
             {% endfor %}
             </tbody>

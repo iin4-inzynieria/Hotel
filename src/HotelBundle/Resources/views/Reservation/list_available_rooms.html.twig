@@ -3,7 +3,7 @@
 {% block content %}
 
     <div id="reservationPeriod">
-        From: <strong>{{ arrival | date("d/m/Y") }}</strong>, To: <strong>{{ departure | date("d/m/Y") }}</strong>
+        Od: <strong>{{ arrival | localizeddate('long', 'none', app.request.locale ) }}</strong>, Do: <strong>{{ departure | localizeddate('long', 'none', app.request.locale ) }}</strong>
     </div>
 
     {{ include('HotelBundle:Parts:_room_list.html.twig', { 'rooms': rooms, 'canAskForReservation': true }) }}

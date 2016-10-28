@@ -24,8 +24,8 @@
     <p>Nazwisko: <pre>{{ client.surname }}</pre>
     <p>Email: <pre>{{ client.email }}</pre>
     <p>Cena: <pre>{{ data['price'] }} PLN</pre></p>
-    <p>Data przyjazdu: <pre>{{ data['arrival'] | date("d/m/Y") }}</pre>
-    <p>Data odjazdu: <pre>{{ data['departure'] | date("d/m/Y") }}</pre>
+    <p>Data przyjazdu: <pre>{{ data['arrival'] | localizeddate('long', 'none', app.request.locale ) }}</pre>
+    <p>Data odjazdu: <pre>{{ data['departure'] | localizeddate('long', 'none', app.request.locale ) }}</pre>
     <p>Pokój: {{ room.title }}<img src="{{ room.imageLink }}">
 
 </div>
