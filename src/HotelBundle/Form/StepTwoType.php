@@ -43,6 +43,10 @@ class StepTwoType extends AbstractType {
                 'mapped' => false,
                 'required' => true
             ))
+            ->add('price', HiddenType::class, array(
+                'mapped' => false,
+                'required' => true
+            ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Zarezerwuj',
                 'attr' => array('class' => 'btn btn-default')

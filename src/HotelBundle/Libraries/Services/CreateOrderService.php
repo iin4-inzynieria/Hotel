@@ -20,12 +20,19 @@ class CreateOrderService {
     private $em;
 
     /**
+     * @var MailerService
+     */
+    private $mailer;
+
+    /**
      * CreateOrderService constructor.
      *
      * @param EntityManager $em
+     * @param MailerService $mailer
      */
-    public function __construct(EntityManager $em) {
+    public function __construct(EntityManager $em, MailerService $mailer) {
         $this->em = $em;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -42,6 +49,7 @@ class CreateOrderService {
             $order->setRoom($room);
             $order->setArrival($data['arrival']);
             $order->setDeparture($data['departure']);
+            $order->setPrice($data['price']);
 
             $this->em->persist($order);
             $this->em->flush();
@@ -52,10 +60,10 @@ class CreateOrderService {
                 $data['departure'],
                 $room
             );
+
+            return $this->mailer->sendReservationEmail($client, $room, $data);
         } catch(\Exception $e) {
             return false;
         }
-
-        return true;
     }
 }

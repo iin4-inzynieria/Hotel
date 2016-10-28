@@ -27,7 +27,7 @@ class DefaultController extends Controller {
     }
 
     /**
-     * Contact page
+     * Contact page.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -37,7 +37,7 @@ class DefaultController extends Controller {
     }
 
     /**
-     * Sending contact message
+     * Sending contact message.
      *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -45,9 +45,10 @@ class DefaultController extends Controller {
     public function sendMessageAction(Request $request) {
 
         $contactFormData = $request->request->all();
+        
+        $this->container->get('hotel_mailer_service')->sendContactEmail($contactFormData);
 
         $this->addFlash('notice', 'Wiadomość została wysłana!');
         return $this->redirectToRoute('hotel_contact');
-
     }
 }

@@ -8,7 +8,22 @@ use Doctrine\ORM\EntityRepository;
 class RoomRepository extends EntityRepository {
 
     /**
-     * Returns rooms available between given dates.
+     * Returns rooms with prices.
+     *
+     * @return array
+     */
+    public function findAllWithPrices() {
+
+        return $this->createQueryBuilder('r')
+            ->select('r AS room, c.price as price')
+            ->leftJoin('r.calendar', 'c')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Returns rooms available between given dates and their prices for given
+     * period.
      *
      * @param \DateTime $arrival
      * @param \DateTime $departure
@@ -20,7 +35,7 @@ class RoomRepository extends EntityRepository {
         $interval = $arrival->diff($departure, true)->d + 1;
         
         return $this->createQueryBuilder('r')
-            ->select('r')
+            ->select('r AS room, SUM(c.price) AS price')
             ->leftJoin('r.calendar', 'c')
             ->where('c.available = :availability')
             ->andWhere('c.date BETWEEN :arrival AND :departure')
