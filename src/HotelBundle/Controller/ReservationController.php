@@ -115,7 +115,7 @@ class ReservationController extends Controller {
 
         $successful = $this->container->get('hotel_order_service')->createOrder($client, $room, $data);
 
-        if($successful) {
+        if ($successful) {
             $this->addFlash('notice', 'Pokój został zarezerwowany.');
         } else {
             $this->addFlash('error', 'Coś poszło nie tak, pokój nie został zarezerwowany.');
@@ -140,7 +140,7 @@ class ReservationController extends Controller {
             ? false
             : $this->container->get('hotel_order_service')->deleteOrderIfPossible($order);
 
-        if($successful) {
+        if ($successful) {
             $this->addFlash('notice', 'Rezerwacja została anulowana.');
         } else {
             $this->addFlash('error', 'Nie można odwołać rezerwacji.');

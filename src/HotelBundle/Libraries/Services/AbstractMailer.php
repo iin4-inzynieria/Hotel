@@ -1,6 +1,7 @@
 <?php
 
 namespace HotelBundle\Libraries\Services;
+
 use CoreBundle\Entity\Order;
 use CoreBundle\Entity\Room;
 use CoreBundle\Entity\Client;

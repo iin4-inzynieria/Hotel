@@ -10,11 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type as FormType;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class StepOneType extends AbstractType
-{
+class StepOneType extends AbstractType {
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('arrival', FormType\TextType::class, [
                 'mapped' => false,
@@ -31,15 +29,13 @@ class StepOneType extends AbstractType
             ->add('check', FormType\SubmitType::class, [
                 'label' => 'Sprawdź',
                 'attr' => array('class' => 'btn btn-primary')
-            ])
-        ;
+            ]);
     }
 
     /**
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => null
         ));
@@ -48,16 +44,14 @@ class StepOneType extends AbstractType
     /**
      * @return string
      */
-    public function getBlockPrefix()
-    {
+    public function getBlockPrefix() {
         return $this->getName();
     }
 
     /**
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return 'step_one';
     }
 }

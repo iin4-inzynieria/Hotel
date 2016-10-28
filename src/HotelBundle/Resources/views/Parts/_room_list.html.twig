@@ -26,7 +26,8 @@
         <tbody>
         {% for room in rooms %}
             <tr>
-                <td class="col-md-10"><img class="img-thumbnail" src="{{ room['room'].imageLink }}" alt="{{ room['room'].title }}"/></td>
+                <td class="col-md-10"><img class="img-thumbnail" src="{{ room['room'].imageLink }}"
+                                           alt="{{ room['room'].title }}"/></td>
                 <td class="col-md-3">{{ room['room'].title }}</td>
                 {% if canAskForReservation %}
                     <td class="col-md-3">
@@ -34,7 +35,8 @@
                     </td>
                 {% endif %}
                 <td class="col-md-3">
-                    <a href="{{ path('hotel_rooms_show', { id: room['room'].id }) }}" class="btn btn-default">Szczegóły</a>
+                    <a href="{{ path('hotel_rooms_show', { id: room['room'].id }) }}"
+                       class="btn btn-default">Szczegóły</a>
                 </td>
                 {% if canAskForReservation %}
                     <td class="col-md-3">

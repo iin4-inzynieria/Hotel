@@ -31,7 +31,7 @@ class RoomRepository extends EntityRepository {
      * @return array
      */
     public function getAvailableByDatePeriod(\DateTime $arrival, \DateTime $departure) {
-        
+
         $interval = intval($arrival->diff($departure, true)->format('%a')) + 1;
 
         return $this->createQueryBuilder('r')
@@ -50,10 +50,12 @@ class RoomRepository extends EntityRepository {
     }
 
     /**
+     * Returns room price.
+     *
      * @param Room $room
      * @return mixed
      */
-    public function getActualRoomPrice(Room $room){
+    public function getRoomPrice(Room $room) {
 
         $dateNow = new \DateTime();
         return $this->createQueryBuilder('r')

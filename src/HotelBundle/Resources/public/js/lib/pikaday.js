@@ -4,30 +4,33 @@
  * Copyright © 2014 David Bushell | BSD & MIT license | https://github.com/dbushell/Pikaday
  */
 
-(function (root, factory)
-{
+(function (root, factory) {
     'use strict';
 
     var moment;
     if (typeof exports === 'object') {
         // CommonJS module
         // Load moment.js as an optional dependency
-        try { moment = require('moment'); } catch (e) {}
+        try {
+            moment = require('moment');
+        } catch (e) {
+        }
         module.exports = factory(moment);
     } else if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        define(function (req)
-        {
+        define(function (req) {
             // Load moment.js as an optional dependency
             var id = 'moment';
-            try { moment = req(id); } catch (e) {}
+            try {
+                moment = req(id);
+            } catch (e) {
+            }
             return factory(moment);
         });
     } else {
         root.Pikaday = factory(root.moment);
     }
-}(this, function (moment)
-{
+}(this, function (moment) {
     'use strict';
 
     /**
@@ -41,8 +44,7 @@
 
         sto = window.setTimeout,
 
-        addEvent = function(el, e, callback, capture)
-        {
+        addEvent = function (el, e, callback, capture) {
             if (hasEventListeners) {
                 el.addEventListener(e, callback, !!capture);
             } else {
@@ -50,8 +52,7 @@
             }
         },
 
-        removeEvent = function(el, e, callback, capture)
-        {
+        removeEvent = function (el, e, callback, capture) {
             if (hasEventListeners) {
                 el.removeEventListener(e, callback, !!capture);
             } else {
@@ -59,8 +60,7 @@
             }
         },
 
-        fireEvent = function(el, eventName, data)
-        {
+        fireEvent = function (el, eventName, data) {
             var ev;
 
             if (document.createEvent) {
@@ -75,62 +75,53 @@
             }
         },
 
-        trim = function(str)
-        {
-            return str.trim ? str.trim() : str.replace(/^\s+|\s+$/g,'');
+        trim = function (str) {
+            return str.trim ? str.trim() : str.replace(/^\s+|\s+$/g, '');
         },
 
-        hasClass = function(el, cn)
-        {
+        hasClass = function (el, cn) {
             return (' ' + el.className + ' ').indexOf(' ' + cn + ' ') !== -1;
         },
 
-        addClass = function(el, cn)
-        {
+        addClass = function (el, cn) {
             if (!hasClass(el, cn)) {
                 el.className = (el.className === '') ? cn : el.className + ' ' + cn;
             }
         },
 
-        removeClass = function(el, cn)
-        {
+        removeClass = function (el, cn) {
             el.className = trim((' ' + el.className + ' ').replace(' ' + cn + ' ', ' '));
         },
 
-        isArray = function(obj)
-        {
+        isArray = function (obj) {
             return (/Array/).test(Object.prototype.toString.call(obj));
         },
 
-        isDate = function(obj)
-        {
+        isDate = function (obj) {
             return (/Date/).test(Object.prototype.toString.call(obj)) && !isNaN(obj.getTime());
         },
 
-        isWeekend = function(date)
-        {
+        isWeekend = function (date) {
             var day = date.getDay();
             return day === 0 || day === 6;
         },
 
-        isLeapYear = function(year)
-        {
+        isLeapYear = function (year) {
             // solution by Matti Virkkunen: http://stackoverflow.com/a/4881951
             return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
         },
 
-        getDaysInMonth = function(year, month)
-        {
-            return [31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+        getDaysInMonth = function (year, month) {
+            return [ 31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ][ month ];
         },
 
-        setToStartOfDay = function(date)
-        {
-            if (isDate(date)) date.setHours(0,0,0,0);
+        setToStartOfDay = function (date) {
+            if (isDate(date)) {
+                date.setHours(0, 0, 0, 0);
+            }
         },
 
-        compareDates = function(a,b)
-        {
+        compareDates = function (a, b) {
             // Copy so we don't change the dates being passed in
             var _a = new Date(a.getTime());
             var _b = new Date(b.getTime());
@@ -139,38 +130,37 @@
             return _a.getTime() === _b.getTime();
         },
 
-        extend = function(to, from, overwrite)
-        {
+        extend = function (to, from, overwrite) {
             var prop, hasProp;
             for (prop in from) {
-                hasProp = to[prop] !== undefined;
-                if (hasProp && typeof from[prop] === 'object' && from[prop] !== null && from[prop].nodeName === undefined) {
-                    if (isDate(from[prop])) {
+                hasProp = to[ prop ] !== undefined;
+                if (hasProp && typeof from[ prop ] === 'object' && from[ prop ] !== null && from[ prop ].nodeName === undefined) {
+                    if (isDate(from[ prop ])) {
                         if (overwrite) {
-                            to[prop] = new Date(from[prop].getTime());
+                            to[ prop ] = new Date(from[ prop ].getTime());
                         }
                     }
-                    else if (isArray(from[prop])) {
+                    else if (isArray(from[ prop ])) {
                         if (overwrite) {
-                            to[prop] = from[prop].slice(0);
+                            to[ prop ] = from[ prop ].slice(0);
                         }
                     } else {
-                        to[prop] = extend({}, from[prop], overwrite);
+                        to[ prop ] = extend({}, from[ prop ], overwrite);
                     }
                 } else if (overwrite || !hasProp) {
-                    to[prop] = from[prop];
+                    to[ prop ] = from[ prop ];
                 }
             }
             return to;
         },
 
-        adjustCalendar = function(calendar) {
+        adjustCalendar = function (calendar) {
             if (calendar.month < 0) {
-                calendar.year -= Math.ceil(Math.abs(calendar.month)/12);
+                calendar.year -= Math.ceil(Math.abs(calendar.month) / 12);
                 calendar.month += 12;
             }
             if (calendar.month > 11) {
-                calendar.year += Math.floor(Math.abs(calendar.month)/12);
+                calendar.year += Math.floor(Math.abs(calendar.month) / 12);
                 calendar.month -= 12;
             }
             return calendar;
@@ -269,13 +259,13 @@
 
             // internationalization
             i18n: {
-                previousMonth : 'Previous Month',
-                nextMonth     : 'Next Month',
-                months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
-                weekdays      : ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-                weekdaysShort : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
-                midnight      : 'Midnight',
-                noon          : 'Noon'
+                previousMonth: 'Previous Month',
+                nextMonth: 'Next Month',
+                months: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
+                weekdays: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
+                weekdaysShort: [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ],
+                midnight: 'Midnight',
+                noon: 'Noon'
             },
 
             // Theme Classname
@@ -288,21 +278,18 @@
             onDraw: null
         },
 
-
         /**
          * templating functions to abstract HTML rendering
          */
-        renderDayName = function(opts, day, abbr)
-        {
+        renderDayName = function (opts, day, abbr) {
             day += opts.firstDay;
             while (day >= 7) {
                 day -= 7;
             }
-            return abbr ? opts.i18n.weekdaysShort[day] : opts.i18n.weekdays[day];
+            return abbr ? opts.i18n.weekdaysShort[ day ] : opts.i18n.weekdays[ day ];
         },
 
-        renderDay = function(opts)
-        {
+        renderDay = function (opts) {
             var arr = [];
             if (opts.isEmpty) {
                 if (opts.showDaysInNextAndPreviousMonths) {
@@ -340,22 +327,19 @@
         renderWeek = function (d, m, y) {
             // Lifted from http://javascript.about.com/library/blweekyear.htm, lightly modified.
             var onejan = new Date(y, 0, 1),
-                weekNum = Math.ceil((((new Date(y, m, d) - onejan) / 86400000) + onejan.getDay()+1)/7);
+                weekNum = Math.ceil((((new Date(y, m, d) - onejan) / 86400000) + onejan.getDay() + 1) / 7);
             return '<td class="pika-week">' + weekNum + '</td>';
         },
 
-        renderRow = function(days, isRTL)
-        {
+        renderRow = function (days, isRTL) {
             return '<tr>' + (isRTL ? days.reverse() : days).join('') + '</tr>';
         },
 
-        renderBody = function(rows)
-        {
+        renderBody = function (rows) {
             return '<tbody>' + rows.join('') + '</tbody>';
         },
 
-        renderHead = function(opts)
-        {
+        renderHead = function (opts) {
             var i, arr = [];
             if (opts.showWeekNumber) {
                 arr.push('<th></th>');
@@ -366,8 +350,7 @@
             return '<thead>' + (opts.isRTL ? arr.reverse() : arr).join('') + '</thead>';
         },
 
-        renderTitle = function(instance, c, year, month, refYear)
-        {
+        renderTitle = function (instance, c, year, month, refYear) {
             var i, j, arr,
                 opts = instance._o,
                 isMinYear = year === opts.minYear,
@@ -380,15 +363,15 @@
 
             for (arr = [], i = 0; i < 12; i++) {
                 arr.push('<option value="' + (year === refYear ? i - c : 12 + i - c) + '"' +
-                    (i === month ? ' selected': '') +
+                    (i === month ? ' selected' : '') +
                     ((isMinYear && i < opts.minMonth) || (isMaxYear && i > opts.maxMonth) ? 'disabled' : '') + '>' +
-                    opts.i18n.months[i] + '</option>');
+                    opts.i18n.months[ i ] + '</option>');
             }
-            monthHtml = '<div class="pika-label">' + opts.i18n.months[month] + '<select class="pika-select pika-select-month" tabindex="-1">' + arr.join('') + '</select></div>';
+            monthHtml = '<div class="pika-label">' + opts.i18n.months[ month ] + '<select class="pika-select pika-select-month" tabindex="-1">' + arr.join('') + '</select></div>';
 
             if (isArray(opts.yearRange)) {
-                i = opts.yearRange[0];
-                j = opts.yearRange[1] + 1;
+                i = opts.yearRange[ 0 ];
+                j = opts.yearRange[ 1 ] + 1;
             } else {
                 i = year - opts.yearRange;
                 j = 1 + year + opts.yearRange;
@@ -396,7 +379,7 @@
 
             for (arr = []; i < j && i <= opts.maxYear; i++) {
                 if (i >= opts.minYear) {
-                    arr.push('<option value="' + i + '"' + (i === year ? ' selected': '') + '>' + (i) + '</option>');
+                    arr.push('<option value="' + i + '"' + (i === year ? ' selected' : '') + '>' + (i) + '</option>');
                 }
             }
             yearHtml = '<div class="pika-label">' + year + opts.yearSuffix + '<select class="pika-select pika-select-year" tabindex="-1">' + arr.join('') + '</select></div>';
@@ -418,36 +401,34 @@
             if (c === 0) {
                 html += '<button class="pika-prev' + (prev ? '' : ' is-disabled') + '" type="button">' + opts.i18n.previousMonth + '</button>';
             }
-            if (c === (instance._o.numberOfMonths - 1) ) {
+            if (c === (instance._o.numberOfMonths - 1)) {
                 html += '<button class="pika-next' + (next ? '' : ' is-disabled') + '" type="button">' + opts.i18n.nextMonth + '</button>';
             }
 
             return html += '</div>';
         },
 
-        renderTable = function(opts, data)
-        {
+        renderTable = function (opts, data) {
             return '<table cellpadding="0" cellspacing="0" class="pika-table">' + renderHead(opts) + renderBody(data) + '</table>';
         },
 
-        renderTimePicker = function(num_options, selected_val, select_class, display_func, increment_by) {
+        renderTimePicker = function (num_options, selected_val, select_class, display_func, increment_by) {
             increment_by = increment_by || 1;
-            var to_return = '<td><select class="pika-select '+select_class+'">';
+            var to_return = '<td><select class="pika-select ' + select_class + '">';
             for (var i = 0; i < num_options; i += increment_by) {
-                to_return += '<option value="'+i+'" '+(i==selected_val ? 'selected' : '')+'>'+display_func(i)+'</option>'
+                to_return += '<option value="' + i + '" ' + (i == selected_val ? 'selected' : '') + '>' + display_func(i) + '</option>'
             }
             to_return += '</select></td>';
             return to_return;
         },
 
-        renderTime = function(hh, mm, ss, opts)
-        {
+        renderTime = function (hh, mm, ss, opts) {
             var to_return = '<table cellpadding="0" cellspacing="0" class="pika-time"><tbody><tr>' +
-                renderTimePicker(24, hh, 'pika-select-hour', function(i) {
+                renderTimePicker(24, hh, 'pika-select-hour', function (i) {
                         if (opts.use24hour) {
                             return i;
                         } else {
-                            var to_return = (i%12) + (i<12 ? ' AM' : ' PM');
+                            var to_return = (i % 12) + (i < 12 ? ' AM' : ' PM');
                             if (to_return == '0 AM') {
                                 return opts.i18n.midnight;
                             } else if (to_return == '0 PM') {
@@ -459,27 +440,33 @@
                     },
                     opts.incrementHourBy) +
                 '<td>:</td>' +
-                renderTimePicker(60, mm, 'pika-select-minute', function(i) { if (i < 10) return "0" + i; return i }, opts.incrementMinuteBy);
+                renderTimePicker(60, mm, 'pika-select-minute', function (i) {
+                    if (i < 10) {
+                        return "0" + i;
+                    }
+                    return i
+                }, opts.incrementMinuteBy);
 
             if (opts.showSeconds) {
                 to_return += '<td>:</td>' +
-                    renderTimePicker(60, ss, 'pika-select-second', function(i) { if (i < 10) return "0" + i; return i }, opts.incrementSecondBy);
+                    renderTimePicker(60, ss, 'pika-select-second', function (i) {
+                        if (i < 10) {
+                            return "0" + i;
+                        }
+                        return i
+                    }, opts.incrementSecondBy);
             }
             return to_return + '</tr></tbody></table>';
         },
 
-
-
         /**
          * Pikaday constructor
          */
-        Pikaday = function(options)
-        {
+        Pikaday = function (options) {
             var self = this,
                 opts = self.config(options);
 
-            self._onMouseDown = function(e)
-            {
+            self._onMouseDown = function (e) {
                 if (!self._v) {
                     return;
                 }
@@ -506,7 +493,7 @@
                         }
                         self.setDate(newDate);
                         if (opts.bound) {
-                            sto(function() {
+                            sto(function () {
                                 if (opts.autoClose) {
                                     self.hide();
                                 }
@@ -536,8 +523,7 @@
                 }
             };
 
-            self._onChange = function(e)
-            {
+            self._onChange = function (e) {
                 e = e || window.event;
                 var target = e.target || e.srcElement;
                 if (!target) {
@@ -560,8 +546,7 @@
                 }
             };
 
-            self._onInputChange = function(e)
-            {
+            self._onInputChange = function (e) {
                 var date;
 
                 if (e.firedBy === self) {
@@ -582,18 +567,15 @@
                 }
             };
 
-            self._onInputFocus = function()
-            {
+            self._onInputFocus = function () {
                 self.show();
             };
 
-            self._onInputClick = function()
-            {
+            self._onInputClick = function () {
                 self.show();
             };
 
-            self._onInputBlur = function()
-            {
+            self._onInputBlur = function () {
                 // IE allows pika div to gain focus; catch blur the input field
                 var pEl = document.activeElement;
                 do {
@@ -604,15 +586,14 @@
                 while ((pEl = pEl.parentNode));
 
                 if (opts.autoClose && !self._c) {
-                    self._b = sto(function() {
+                    self._b = sto(function () {
                         self.hide();
                     }, 50);
                 }
                 self._c = false;
             };
 
-            self._onClick = function(e)
-            {
+            self._onClick = function (e) {
                 e = e || window.event;
                 var target = e.target || e.srcElement,
                     pEl = target;
@@ -688,18 +669,15 @@
             }
         };
 
-
     /**
      * public Pikaday API
      */
     Pikaday.prototype = {
 
-
         /**
          * configure functionality
          */
-        config: function(options)
-        {
+        config: function (options) {
             if (!this._o) {
                 this._o = extend({}, defaults, true);
             }
@@ -743,8 +721,8 @@
 
             if (isArray(opts.yearRange)) {
                 var fallback = new Date().getFullYear() - 10;
-                opts.yearRange[0] = parseInt(opts.yearRange[0], 10) || fallback;
-                opts.yearRange[1] = parseInt(opts.yearRange[1], 10) || fallback;
+                opts.yearRange[ 0 ] = parseInt(opts.yearRange[ 0 ], 10) || fallback;
+                opts.yearRange[ 1 ] = parseInt(opts.yearRange[ 1 ], 10) || fallback;
             } else {
                 opts.yearRange = Math.abs(parseInt(opts.yearRange, 10)) || defaults.yearRange;
                 if (opts.yearRange > 100) {
@@ -760,7 +738,7 @@
                 }
             }
 
-            if(!opts.inputFormats) {
+            if (!opts.inputFormats) {
                 opts.inputFormats = opts.format;
             }
 
@@ -770,24 +748,21 @@
         /**
          * return a formatted string of the current selection (using Moment.js if available)
          */
-        toString: function(format)
-        {
+        toString: function (format) {
             return !isDate(this._d) ? '' : hasMoment ? moment(this._d).format(format || this._o.format) : this._o.showTime ? this._d.toString() : this._d.toDateString();
         },
 
         /**
          * return a Moment.js object of the current selection (if available)
          */
-        getMoment: function()
-        {
+        getMoment: function () {
             return hasMoment ? moment(this._d) : null;
         },
 
         /**
          * set the current selection from a Moment.js object (if available)
          */
-        setMoment: function(date, preventOnSelect)
-        {
+        setMoment: function (date, preventOnSelect) {
             if (hasMoment && moment.isMoment(date)) {
                 this.setDate(date.toDate(), preventOnSelect);
             }
@@ -796,8 +771,7 @@
         /**
          * return a Date object of the current selection
          */
-        getDate: function()
-        {
+        getDate: function () {
             return isDate(this._d) ? new Date(this._d.getTime()) : null;
         },
 
@@ -805,10 +779,10 @@
          * set time components
          * Currently defaulting to setting date to today if not set
          */
-        setTime: function(hours, minutes, seconds) {
+        setTime: function (hours, minutes, seconds) {
             if (!this._d) {
                 this._d = new Date();
-                this._d.setHours(0,0,0,0);
+                this._d.setHours(0, 0, 0, 0);
             }
             if (hours) {
                 this._d.setHours(hours);
@@ -825,8 +799,7 @@
         /**
          * set the current selection
          */
-        setDate: function(date, preventOnSelect)
-        {
+        setDate: function (date, preventOnSelect) {
             if (!date) {
                 this._d = null;
 
@@ -875,8 +848,7 @@
         /**
          * change view to a specific date
          */
-        gotoDate: function(date)
-        {
+        gotoDate: function (date) {
             var newCalendar = true;
 
             if (!isDate(date)) {
@@ -884,77 +856,72 @@
             }
 
             if (this.calendars) {
-                var firstVisibleDate = new Date(this.calendars[0].year, this.calendars[0].month, 1),
-                    lastVisibleDate = new Date(this.calendars[this.calendars.length-1].year, this.calendars[this.calendars.length-1].month, 1),
+                var firstVisibleDate = new Date(this.calendars[ 0 ].year, this.calendars[ 0 ].month, 1),
+                    lastVisibleDate = new Date(this.calendars[ this.calendars.length - 1 ].year, this.calendars[ this.calendars.length - 1 ].month, 1),
                     visibleDate = date.getTime();
                 // get the end of the month
-                lastVisibleDate.setMonth(lastVisibleDate.getMonth()+1);
-                lastVisibleDate.setDate(lastVisibleDate.getDate()-1);
+                lastVisibleDate.setMonth(lastVisibleDate.getMonth() + 1);
+                lastVisibleDate.setDate(lastVisibleDate.getDate() - 1);
                 newCalendar = (visibleDate < firstVisibleDate.getTime() || lastVisibleDate.getTime() < visibleDate);
             }
 
             if (newCalendar) {
-                this.calendars = [{
+                this.calendars = [ {
                     month: date.getMonth(),
                     year: date.getFullYear(),
                     hour: date.getHours(),
                     minute: date.getMinutes(),
                     second: date.getSeconds()
-                }];
+                } ];
                 if (this._o.mainCalendar === 'right') {
-                    this.calendars[0].month += 1 - this._o.numberOfMonths;
+                    this.calendars[ 0 ].month += 1 - this._o.numberOfMonths;
                 }
             }
 
             this.adjustCalendars();
         },
 
-        adjustCalendars: function() {
-            this.calendars[0] = adjustCalendar(this.calendars[0]);
+        adjustCalendars: function () {
+            this.calendars[ 0 ] = adjustCalendar(this.calendars[ 0 ]);
             for (var c = 1; c < this._o.numberOfMonths; c++) {
-                this.calendars[c] = adjustCalendar({
-                    month: this.calendars[0].month + c,
-                    year: this.calendars[0].year
+                this.calendars[ c ] = adjustCalendar({
+                    month: this.calendars[ 0 ].month + c,
+                    year: this.calendars[ 0 ].year
                 });
             }
             this.draw();
         },
 
-        gotoToday: function()
-        {
+        gotoToday: function () {
             this.gotoDate(new Date());
         },
 
         /**
          * change view to a specific month (zero-index, e.g. 0: January)
          */
-        gotoMonth: function(month)
-        {
+        gotoMonth: function (month) {
             if (!isNaN(month)) {
-                this.calendars[0].month = parseInt(month, 10);
+                this.calendars[ 0 ].month = parseInt(month, 10);
                 this.adjustCalendars();
             }
         },
 
-        nextMonth: function()
-        {
-            this.calendars[0].month++;
+        nextMonth: function () {
+            this.calendars[ 0 ].month++;
             this.adjustCalendars();
         },
 
-        prevMonth: function()
-        {
-            this.calendars[0].month--;
+        prevMonth: function () {
+            this.calendars[ 0 ].month--;
             this.adjustCalendars();
         },
 
         /**
          * change view to a specific full year (e.g. "2012")
          */
-        gotoYear: function(year)
-        {
+        gotoYear: function (year) {
             if (!isNaN(year)) {
-                this.calendars[0].year = parseInt(year, 10);
+                this.calendars[ 0 ].year = parseInt(year, 10);
                 this.adjustCalendars();
             }
         },
@@ -962,11 +929,12 @@
         /**
          * change the minDate
          */
-        setMinDate: function(value)
-        {
-            if (!this._o.showTime) setToStartOfDay(value);
+        setMinDate: function (value) {
+            if (!this._o.showTime) {
+                setToStartOfDay(value);
+            }
             this._o.minDate = value;
-            this._o.minYear  = value.getFullYear();
+            this._o.minYear = value.getFullYear();
             this._o.minMonth = value.getMonth();
             this.draw();
         },
@@ -974,8 +942,7 @@
         /**
          * change the maxDate
          */
-        setMaxDate: function(value)
-        {
+        setMaxDate: function (value) {
             setToStartOfDay(value);
             this._o.maxDate = value;
             this._o.maxYear = value.getFullYear();
@@ -983,21 +950,18 @@
             this.draw();
         },
 
-        setStartRange: function(value)
-        {
+        setStartRange: function (value) {
             this._o.startRange = value;
         },
 
-        setEndRange: function(value)
-        {
+        setEndRange: function (value) {
             this._o.endRange = value;
         },
 
         /**
          * refresh the HTML
          */
-        draw: function(force)
-        {
+        draw: function (force) {
             if (!this._v && !force) {
                 return;
             }
@@ -1022,7 +986,7 @@
             }
 
             for (var c = 0; c < opts.numberOfMonths; c++) {
-                html += '<div class="pika-lendar">' + renderTitle(this, c, this.calendars[c].year, this.calendars[c].month, this.calendars[0].year) + this.render(this.calendars[c].year, this.calendars[c].month) + '</div>';
+                html += '<div class="pika-lendar">' + renderTitle(this, c, this.calendars[ c ].year, this.calendars[ c ].month, this.calendars[ 0 ].year) + this.render(this.calendars[ c ].year, this.calendars[ c ].month) + '</div>';
             }
 
             if (opts.showTime) {
@@ -1038,8 +1002,8 @@
             this.el.innerHTML = html;
 
             if (opts.bound) {
-                if(opts.field.type !== 'hidden') {
-                    sto(function() {
+                if (opts.field.type !== 'hidden') {
+                    sto(function () {
                         opts.trigger.focus();
                     }, 1);
                 }
@@ -1047,17 +1011,18 @@
 
             if (typeof this._o.onDraw === 'function') {
                 var self = this;
-                sto(function() {
+                sto(function () {
                     self._o.onDraw.call(self);
                 }, 0);
             }
         },
 
-        adjustPosition: function()
-        {
+        adjustPosition: function () {
             var field, pEl, width, height, viewportWidth, viewportHeight, scrollTop, left, top, clientRect;
 
-            if (this._o.container) return;
+            if (this._o.container) {
+                return;
+            }
 
             this.el.style.position = 'absolute';
 
@@ -1075,10 +1040,10 @@
                 top = clientRect.bottom + window.pageYOffset;
             } else {
                 left = pEl.offsetLeft;
-                top  = pEl.offsetTop + pEl.offsetHeight;
-                while((pEl = pEl.offsetParent)) {
+                top = pEl.offsetTop + pEl.offsetHeight;
+                while ((pEl = pEl.offsetParent)) {
                     left += pEl.offsetLeft;
-                    top  += pEl.offsetTop;
+                    top += pEl.offsetTop;
                 }
             }
 
@@ -1107,15 +1072,16 @@
         /**
          * render HTML for a particular month
          */
-        render: function(year, month)
-        {
-            var opts   = this._o,
-                now    = new Date(),
-                days   = getDaysInMonth(year, month),
+        render: function (year, month) {
+            var opts = this._o,
+                now = new Date(),
+                days = getDaysInMonth(year, month),
                 before = new Date(year, month, 1).getDay(),
-                data   = [],
-                row    = [];
-            if (!opts.showTime) setToStartOfDay(now);
+                data = [],
+                row = [];
+            if (!opts.showTime) {
+                setToStartOfDay(now);
+            }
             if (opts.firstDay > 0) {
                 before -= opts.firstDay;
                 if (before < 0) {
@@ -1129,7 +1095,7 @@
                 daysInPreviousMonth = getDaysInMonth(yearOfPreviousMonth, previousMonth);
             var cells = days + before,
                 after = cells;
-            while(after > 7) {
+            while (after > 7) {
                 after -= 7;
             }
             cells += 7 - after;
@@ -1138,8 +1104,7 @@
             var minDate_date = opts.minDate ? new Date(opts.minDate.getFullYear(), opts.minDate.getMonth(), opts.minDate.getDate()) : null;
             var maxDate_date = opts.maxDate ? new Date(opts.maxDate.getFullYear(), opts.maxDate.getMonth(), opts.maxDate.getDate()) : null;
 
-            for (var i = 0, r = 0; i < cells; i++)
-            {
+            for (var i = 0, r = 0; i < cells; i++) {
                 var day = new Date(year, month, 1 + (i - before)),
                     isSelected = isDate(this._d) ? compareDates(day, this._d) : false,
                     isToday = compareDates(day, now),
@@ -1195,13 +1160,11 @@
             return renderTable(opts, data);
         },
 
-        isVisible: function()
-        {
+        isVisible: function () {
             return this._v;
         },
 
-        show: function()
-        {
+        show: function () {
             if (!this._v) {
                 removeClass(this.el, 'is-hidden');
                 this._v = true;
@@ -1216,8 +1179,7 @@
             }
         },
 
-        hide: function()
-        {
+        hide: function () {
             var v = this._v;
             if (v !== false) {
                 if (this._o.bound) {
@@ -1237,8 +1199,7 @@
         /**
          * GAME OVER
          */
-        destroy: function()
-        {
+        destroy: function () {
             this.hide();
             removeEvent(this.el, 'mousedown', this._onMouseDown, true);
             removeEvent(this.el, 'touchend', this._onMouseDown, true);

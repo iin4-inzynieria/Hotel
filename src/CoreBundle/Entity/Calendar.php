@@ -14,8 +14,8 @@ use Fachowo\CoreBundle\Entity\Interfaces\EntityInterface;
  * @ORM\Table(name="calendar")
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\CalendarRepository")
  */
-class Calendar
-{
+class Calendar {
+
     use ORMBehaviors\Timestampable\Timestampable;
 
     /**
@@ -68,16 +68,14 @@ class Calendar
     /**
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
      * @return \DateTime
      */
-    public function getDate()
-    {
+    public function getDate() {
         return $this->date;
     }
 
@@ -85,8 +83,7 @@ class Calendar
      * @param \DateTime $date
      * @return Calendar
      */
-    public function setDate($date)
-    {
+    public function setDate($date) {
         $this->date = $date;
         return $this;
     }
@@ -94,8 +91,7 @@ class Calendar
     /**
      * @return boolean
      */
-    public function isAvailable()
-    {
+    public function isAvailable() {
         return $this->available;
     }
 
@@ -103,8 +99,7 @@ class Calendar
      * @param boolean $available
      * @return Calendar
      */
-    public function setAvailable($available)
-    {
+    public function setAvailable($available) {
         $this->available = $available;
         return $this;
     }
@@ -112,8 +107,7 @@ class Calendar
     /**
      * @return Room
      */
-    public function getRoom()
-    {
+    public function getRoom() {
         return $this->room;
     }
 
@@ -121,8 +115,7 @@ class Calendar
      * @param Room $room
      * @return Calendar
      */
-    public function setRoom($room)
-    {
+    public function setRoom($room) {
         $this->room = $room;
         return $this;
     }
@@ -130,8 +123,7 @@ class Calendar
     /**
      * @return Order
      */
-    public function getOrder()
-    {
+    public function getOrder() {
         return $this->order;
     }
 
@@ -139,8 +131,7 @@ class Calendar
      * @param Order $order
      * @return Calendar
      */
-    public function setOrder(Order $order)
-    {
+    public function setOrder(Order $order) {
         $this->order = $order;
         return $this;
     }
@@ -151,8 +142,7 @@ class Calendar
      * @param bool|false $raw
      * @return int|string
      */
-    public function getPrice($raw = false)
-    {
+    public function getPrice($raw = false) {
         if ($raw) {
             return $this->price;
         }
@@ -166,8 +156,7 @@ class Calendar
      * @param int $price
      * @return Calendar
      */
-    public function setPrice($price)
-    {
+    public function setPrice($price) {
         $this->price = $price;
         return $this;
     }

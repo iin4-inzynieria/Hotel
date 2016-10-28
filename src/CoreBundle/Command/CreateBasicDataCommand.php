@@ -9,23 +9,21 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
-class CreateBasicDataCommand extends ContainerAwareCommand
-{
+class CreateBasicDataCommand extends ContainerAwareCommand {
+
     /** @var OutputInterface */
     private $output;
 
     /** @var InputInterface */
     private $input;
 
-    protected function configure()
-    {
+    protected function configure() {
         $this
             ->setName('create:basic:data')
             ->setDescription('O_o');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $this->input = $input;
         $this->output = $output;
         $em = $this->getContainer()->get('doctrine')->getManager();
@@ -45,8 +43,7 @@ class CreateBasicDataCommand extends ContainerAwareCommand
     /**
      * @return Room[]
      */
-    private function createRooms()
-    {
+    private function createRooms() {
         $roomOne = new Room();
         $roomOne->setTitle('Pokój pierwszy');
         $roomOne->setDescription('pokój 1 desc');
@@ -68,8 +65,7 @@ class CreateBasicDataCommand extends ContainerAwareCommand
         return [$roomOne, $roomTwo, $roomThree];
     }
 
-    private function createCalendarForRoom(Room $entity)
-    {
+    private function createCalendarForRoom(Room $entity) {
         $priceQuestion = new Question("Podaj cenę dla pokoju \"{$entity->getTitle()}\": ");
         $price = $this->getHelper('question')->ask($this->input, $this->output, $priceQuestion);
 

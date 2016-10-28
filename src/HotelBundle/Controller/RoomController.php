@@ -36,7 +36,7 @@ class RoomController extends Controller {
 
         if ($room instanceof Room) {
 
-            $roomPrice = $roomRepository->getActualRoomPrice($room);
+            $roomPrice = $roomRepository->getRoomPrice($room);
 
             return $this->render('HotelBundle:Room:show.html.twig', [
                 'room' => $room,
