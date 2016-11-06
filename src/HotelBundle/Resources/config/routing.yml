@@ -52,3 +52,8 @@ reservation_list:
     path:     /lista-rezerwacji
     defaults: { _controller: HotelBundle:Admin:reservationList }
     methods: [GET]
+
+restaurant:
+    path:     /restauracja
+    defaults: { _controller: HotelBundle:Restaurant:index }
+    methods: [GET]
