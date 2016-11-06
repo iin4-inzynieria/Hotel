@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Hotele WSB!</a>
+            <a class="navbar-brand" href="/">Hotel Janusz</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -22,7 +22,8 @@
                         <span class="sr-only">(current)</span></a></li>
                 <li class="{% if current == 'reservation' %}active{% endif %}"><a
                             href="{{ path('hotel_reservation') }}">Rezerwacja</a></li>
-                <li class="{% if current == 'restaurant' %}active{% endif %}"><a href="#">Restauracja</a></li>
+                <li class="{% if current == 'restaurant' %}active{% endif %}"><a
+                            href="{{ path('restaurant') }}">Restauracja</a></li>
                 <li class="{% if current == 'contact' %}active{% endif %}"><a
                             href="{{ path('hotel_contact') }}">Kontakt</a></li>
 
